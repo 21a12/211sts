@@ -24,9 +24,16 @@ public class MenuController {
 	@GetMapping("/menu/home")
 	public String viewList(Model model) {
 		List<MenuVO> menuList = menuService.readAll();
+		System.out.println("메뉴리스트개수"+menuList.size());
 		model.addAttribute("menuList", menuList);
 		return "menu/list";
 	}
+	
+	@GetMapping("/menu/{id}")
+	public String viewDetail() {
+		return "menu/";
+	}
+	
 	
 	@GetMapping("/menu/create")
 	public String doMenuCreate() {

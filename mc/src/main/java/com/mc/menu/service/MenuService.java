@@ -8,7 +8,7 @@ public interface MenuService {
 
 	public boolean create(MenuVO menuVO);
 	public boolean update(MenuVO menuVO);
-	public boolean delete(boolean menuId);
+	public boolean delete(int menuId);
 	public List<MenuVO> readAll();
 	public MenuVO readOne(int menuId);
 

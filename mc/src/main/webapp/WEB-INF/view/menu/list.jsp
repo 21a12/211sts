@@ -7,11 +7,13 @@
 <meta charset="UTF-8">
 <title>Menu Home</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu1.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/menuHome.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
-		
+		$("#create_btn").click(function(){
+			location = "${pageContext.request.contextPath}/menu/create";
+		})
 	})
 </script>
 </head>
@@ -28,6 +30,8 @@
                 <th>TYPE1</th>
                 <th>TYPE2</th>
                 <th>IMAGE</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +45,8 @@
 	       					<td>${menu.type1}</td>
 	       					<td>${menu.type2}</td>
 	       					<td>${menu.image}</td>
+	       					<td class="td_btn"><button class="update">수정</button></td>
+	       					<td class="td_btn"><button class="delete">삭제</button></td>
 	       				</tr>
        				</c:forEach>
        			</c:when>
@@ -54,6 +60,8 @@
         	</c:choose>
         </tbody>
     </table>
+	
+	<button id="create_btn">create</button>
 	
 </body>
 </html>

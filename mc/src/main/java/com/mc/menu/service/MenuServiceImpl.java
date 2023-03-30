@@ -21,22 +21,22 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public boolean update(MenuVO menuVO) {
-		return false;
+		return menuDAO.update(menuVO) > 0;
 	}
 
 	@Override
-	public boolean delete(boolean menuId) {
-		return false;
+	public boolean delete(int menuId) {
+		return menuDAO.delete(menuId) > 0;
 	}
 
 	@Override
 	public List<MenuVO> readAll() {
-		return null;
+		return menuDAO.readAll();
 	}
 
 	@Override
 	public MenuVO readOne(int menuId) {
-		return null;
+		return menuDAO.readOne(menuId);
 	}
 
 }
