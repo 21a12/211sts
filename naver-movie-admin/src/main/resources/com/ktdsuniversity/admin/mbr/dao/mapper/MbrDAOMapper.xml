@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mbr">
+
+	<select id="readOneMbrByIdAndPwd"
+			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO"
+			resultType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		SELECT MBR_ID
+			 , MBR_NM
+			 , PWD
+			 , TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') CRT_DT
+			 , USE_YN
+			 , TO_CHAR(LST_LGN_DT, 'YYYY-MM-DD HH24:MI:SS') LST_LGN_DT
+			 , LST_LGN_IP
+			 , LGN_TRY_CNT
+			 , LGN_BLOCK_YN
+			 , TO_CHAR(LST_LGN_FAIL_DT, 'YYYY-MM-DD HH24:MI:SS') LST_LGN_FAIL_DT
+			 , PWD_SALT
+			 , TO_CHAR(LST_PWD_CHNG_DT, 'YYYY-MM-DD HH24:MI:SS') LST_PWD_CHNG_DT
+			 , ADM_YN
+		  FROM MBR
+		 WHERE MBR_ID = #{mbrId}
+		   AND PWD = #{pwd}
+	</select>
+
+	<select id="readAllAdminMbr"
+			resultType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		SELECT MBR_ID
+			 , MBR_NM
+			 , PWD
+			 , TO_CHAR(CRT_DT, 'YYYY-MM-DD HH24:MI:SS') CRT_DT
+			 , USE_YN
+			 , TO_CHAR(LST_LGN_DT, 'YYYY-MM-DD HH24:MI:SS') LST_LGN_DT
+			 , LST_LGN_IP
+			 , LGN_TRY_CNT
+			 , LGN_BLOCK_YN
+			 , TO_CHAR(LST_LGN_FAIL_DT, 'YYYY-MM-DD HH24:MI:SS') LST_LGN_FAIL_DT
+			 , PWD_SALT
+			 , TO_CHAR(LST_PWD_CHNG_DT, 'YYYY-MM-DD HH24:MI:SS') LST_PWD_CHNG_DT
+			 , ADM_YN
+		  FROM MBR
+		 WHERE ADM_YN = 'Y'
+		   AND USE_YN = 'Y'
+	</select>
+	
+	<insert id="createNewAdminMbr"
+			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		INSERT INTO MOVIE.MBR
+			 ( MBR_ID
+			 , MBR_NM
+			 , PWD
+			 , CRT_DT
+			 , USE_YN
+			 , LST_LGN_DT
+			 , LST_LGN_IP
+			 , LGN_TRY_CNT
+			 , LGN_BLOCK_YN
+			 , LST_LGN_FAIL_DT
+			 , PWD_SALT
+			 , LST_PWD_CHNG_DT
+			 , ADM_YN)
+		 VALUES
+		 	( #{mbrId}
+		 	, #{mbrNm}
+		 	, #{pwd}
+		 	, SYSDATE
+		 	, NVL(#{useYn},'N')
+		 	, NULL
+		 	, NULL
+		 	, 0 
+		 	, 'N' 
+		 	, NULL
+		 	, #{pwdSalt}
+		 	, NULL
+		 	, NVL(#{admYn},'N'))
+	</insert>
+
+	<update id="updateOneAdminMbr"
+			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		UPDATE MOVIE.MBR 
+		   SET MBR_NM=#{mbrNm}
+		     , USE_YN=NVL(#{useYn},'N')
+		     , LGN_TRY_CNT=#{lgnTryCnt} 
+		     , LGN_BLOCK_YN=NVL(#{lgnBlockYn}, 'N') 
+		     , ADM_YN= NVL(#{admYn},'N')
+	     WHERE MBR_ID = #{mbrId}
+	</update>
+	
+	<update id="deleteOneAdminMbr"
+			parameterType="string">
+		UPDATE MOVIE.MBR 
+		   SET USE_YN='N'
+	     WHERE MBR_ID = #{_parameter}
+	</update>
+
+
+
+</mapper>
