@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Topic">
+
+	<resultMap id="topicMap"
+			   type="com.trash.topic.vo.TopicVO">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="subject" column="SUBJECT" />
+		<result property="content" column="CONTENT" />
+		<result property="email" column="EMAIL" />
+		<result property="crtDt" column="CRT_DT" />
+		<result property="mdfyDt" column="MDFY_DT" />
+		<result property="fileName" column="FILE_NAME" />
+		<result property="originFileName" column="ORIGIN_FILE_NAME" />
+		<association property="memberVO"
+					 javaType="com.trash.member.vo.MemberVO">
+			<id property="email" column="EMAIL" />
+			<result property="name" column="NAME" />
+		</association>
+	</resultMap>
+	
+	<select id="readAll"
+			resultMap="topicMap">
+		SELECT B.ID
+		     , B.SUBJECT
+		     , B.CONTENT
+		     , B.EMAIL
+		     , B.CRT_DT
+		     , B.MDFY_DT
+		     , B.FILE_NAME
+		     , B.ORIGIN_FILE_NAME
+		     , M.NAME
+		  FROM BOARD B
+		 INNER JOIN MEMBERS M 
+		    ON B.EMAIL = M.EMAIL
+		 ORDER BY B.MDFY_DT DESC 
+	</select>
+	
+	<select id="readOne"
+			parameterType="int"
+			resultMap="topicMap">
+		SELECT B.ID
+		     , B.SUBJECT
+		     , B.CONTENT
+		     , B.EMAIL
+		     , B.CRT_DT
+		     , B.MDFY_DT
+		     , B.FILE_NAME
+		     , B.ORIGIN_FILE_NAME
+		     , M.NAME
+		  FROM BOARD B
+		 INNER JOIN MEMBERS M 
+		    ON B.EMAIL = M.EMAIL
+		 WHERE B.ID = #{_parameter}
+	</select>
+	
+	<insert id="create"
+			parameterType="com.trash.topic.vo.TopicVO">
+		<selectKey keyProperty="id" resultType="_int" order="BEFORE">
+			SELECT SEQ_BOARD_PK.NEXTVAL
+			  FROM DUAL
+		</selectKey>
+		INSERT INTO BOARD.BOARD
+			 ( ID
+			 , SUBJECT
+			 , CONTENT
+			 , EMAIL
+			 , CRT_DT
+			 , MDFY_DT
+			 , FILE_NAME
+			 , ORIGIN_FILE_NAME)
+		VALUES
+			 ( #{id}
+			 , #{subject}
+			 , #{content}
+			 , #{email}
+			 , SYSDATE
+			 , SYSDATE
+			 , #{fileName, jdbcType=VARCHAR}
+			 , #{originFileName, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="update"
+			parameterType="com.trash.topic.vo.TopicVO">
+		UPDATE BOARD.BOARD
+		   SET SUBJECT = #{subject}
+		     , CONTENT = #{content}
+		     , FILE_NAME = #{fileName}
+		     , ORIGIN_FILE_NAME = #{originFileName}
+		     , MDFY_DT = SYSDATE
+		 WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete"
+			parameterType="_int">
+		DELETE
+		  FROM BOARD.BOARD
+		 WHERE ID = #{_parameter}
+	</delete>
+</mapper>
