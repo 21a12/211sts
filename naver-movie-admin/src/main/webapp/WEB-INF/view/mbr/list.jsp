@@ -13,6 +13,7 @@
 <jsp:include page="../include/stylescript.jsp"></jsp:include>
 <script type="text/javascript">
 	$().ready(function() {
+		
 		console.log($("#isModify").val());
 		
 		$(".grid > table > tbody > tr").click(function() {
@@ -20,9 +21,9 @@
 			console.log(data);
 			$("#isModify").val("true"); // 수정모드
 			$("#mbrId").attr("readonly",true); //입력제한
-			$("#mbrId").click(function() {
+			/* $("#mbrId").click(function() {
 				alert("ID는 수정 불가임")
-			})
+			}) */
 			$("#mbrId").val(data.mbrid);
 			$("#mbrNm").val(data.mbrnm);
 			$("#crtDt").val(data.crtdt);
@@ -37,8 +38,33 @@
 			$("#admYn").prop("checked", data.admyn == "Y");
 		})
 		
-		$("#btn-new").click(function() {
+		$("#mbrId").keyup(function() {
 			
+			var that = this;
+			var value = $(that).val();
+			value = $.trim(value);
+			
+			if (value == "") {
+				$(that).css("backgroundColor","#FFF");
+				return;
+			}
+			else {
+				$.get("${context}/api/mbr/dup/" + value, function(response) {
+					if (response.status == "200 OK") {
+						$(that).css("backgroundColor","#0F0");
+					}
+					else if (response.status == "500") {
+						$(that).css("backgroundColor","#F00");
+					}
+				})
+				
+			}
+			
+		})
+		
+		
+		$("#btn-new").click(function() {
+			$("#mbrId").css("backgroundColor","#FFF");
 			$("#isModify").val("false"); // 등록모드
 			$("#mbrId").removeAttr("readonly"); //입력제한해제
 			$("#mbrId").val("");
@@ -79,6 +105,15 @@
 			}
 			
 			if ($("#isModify").val() == "false") {
+				
+				// 신규등록할때만 중복체크
+				var bgColor = $("#mbrId").css("backgroundColor");
+				console.log(bgColor)
+				if(bgColor == "rbg(255,0,0)") {
+					alert("bgColor이미 사용중인 ID입니다");
+					return;
+				}
+				
 				$.post("${context}/api/mbr/create", $("#form-detail").serialize(), function(response) {
 					if (response.status == "200 OK") {
 						location.reload(); //새로고침

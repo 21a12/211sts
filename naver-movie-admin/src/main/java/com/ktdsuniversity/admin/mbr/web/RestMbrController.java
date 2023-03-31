@@ -1,5 +1,6 @@
 package com.ktdsuniversity.admin.mbr.web;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class RestMbrController {
 	private MbrService mbrService;
 
 	@PostMapping("/api/mbr/lgn")
-	public ApiResponseVO doLoginAdminMember(MbrVO mbrVO, HttpSession session) {
+	public ApiResponseVO doLoginAdminMember(MbrVO mbrVO, HttpSession session, HttpServletRequest request) {
 
 		if (mbrVO.getMbrId() == null || mbrVO.getMbrId().trim().length() == 0) {
 			throw new ApiArgsException("400", "로그인 아이디는 필수값 입니다.");
@@ -30,10 +31,13 @@ public class RestMbrController {
 		if (mbrVO.getPwd() == null || mbrVO.getPwd().trim().length() == 0) {
 			throw new ApiArgsException("400", "비밀번호는 필수값 입니다.");
 		}
+		
+		mbrVO.setLstLgnIp(request.getRemoteAddr());
+		
 
 		MbrVO mbr = mbrService.readOneMbrByIdAndPwd(mbrVO);
 		if (mbr == null) {
-			throw new ApiException("403", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			throw new ApiException("403", "ID 또는 비밀번호가 일치하지 않습니다.");
 
 		} else {
 			session.setAttribute("__ADMIN__", mbr);
@@ -41,6 +45,19 @@ public class RestMbrController {
 		return new ApiResponseVO(ApiStatus.OK, "", "", "/index");
 	}
 
+	
+	
+	@GetMapping("/api/mbr/dup/{mbrId}")
+	public ApiResponseVO doCheckDupMbrId(@PathVariable String mbrId) {
+		
+		int mbrCount = mbrService.readCountMbrById(mbrId);
+		
+		if (mbrCount == 0) {
+			return new ApiResponseVO(ApiStatus.OK);
+		}
+		return new ApiResponseVO(ApiStatus.FAIL);
+	}
+		
 	@PostMapping("/api/mbr/create")
 	public ApiResponseVO doCreateNewAdmin(MbrVO mbrVO) {
 		

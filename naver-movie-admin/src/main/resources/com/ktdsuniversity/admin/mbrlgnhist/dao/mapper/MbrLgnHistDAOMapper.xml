@@ -2,8 +2,22 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Mbr_lgn_hist">
+<mapper namespace="MbrLgnHist">
 
-
+	<insert id="createMbrLgnHist"
+			parameterType="com.ktdsuniversity.admin.mbrlgnhist.vo.MbrLgnHistVO">
+		INSERT INTO MOVIE.MBR_LGN_HIST 
+			( HIST_ID
+			, MBR_ID
+			, ACT
+			, ACT_DT
+			, IP)
+		VALUES
+			( 'LH-' || TO_CHAR(SYSDATE,'YYYYMMDD') || '-' || LPAD(SEQ_MBR_LGN_HIST_PK.NEXTVAL, 5, '0')
+			, #{mbrId}
+			, #{act}
+			, SYSDATE
+			, #{ip})
+	</insert>
 
 </mapper>

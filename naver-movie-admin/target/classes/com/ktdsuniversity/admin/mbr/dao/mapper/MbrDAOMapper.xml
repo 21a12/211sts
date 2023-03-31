@@ -23,6 +23,8 @@
 		  FROM MBR
 		 WHERE MBR_ID = #{mbrId}
 		   AND PWD = #{pwd}
+		   AND ADM_YN = 'Y'
+		   AND USE_YN = 'Y'
 	</select>
 
 	<select id="readAllAdminMbr"
@@ -44,6 +46,66 @@
 		 WHERE ADM_YN = 'Y'
 		   AND USE_YN = 'Y'
 	</select>
+	
+	
+	<select id="readSaltMbrById"
+			parameterType="string"
+			resultType="string">
+		SELECT PWD_SALT
+		  FROM MBR
+		 WHERE MBR_ID = #{_parameter}
+		   AND ADM_YN = 'Y'
+		   AND USE_YN = 'Y'
+	</select>
+	<select id="readLgnBlockYnById"
+			parameterType="string"
+			resultType="string">
+		SELECT LGN_BLOCK_YN
+		  FROM MBR
+		 WHERE MBR_ID = #{_parameter}
+		   AND ADM_YN = 'Y'
+		   AND USE_YN = 'Y'
+	</select>
+	<select id="readCountMbrById"
+			parameterType="string"
+			resultType="_int">
+		SELECT COUNT(1)
+		  FROM MBR
+		 WHERE MBR_ID = #{_parameter}
+	</select>
+	
+	
+	<update id="updateMbrLgnSucc"
+			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		UPDATE MOVIE.MBR 
+		   SET LST_LGN_DT = SYSDATE 
+			 , LST_LGN_IP = #{lstLgnIp}
+			 , LGN_TRY_CNT = 0
+			 , LST_LGN_FAIL_DT = NULL
+	     WHERE MBR_ID = #{mbrId}
+	       AND ADM_YN = 'Y'
+		   AND USE_YN = 'Y'
+	</update>
+	
+	
+	<update id="updateMbrLgnFail"
+			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		UPDATE MOVIE.MBR 
+		   SET LGN_TRY_CNT = LGN_TRY_CNT + 1
+		     , LST_LGN_FAIL_DT = SYSDATE 
+	     WHERE MBR_ID = #{mbrId}
+	</update>
+	<update id="updateMbrLgnBlock"
+			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+		UPDATE MOVIE.MBR 
+		   SET LGN_BLOCK_YN = 'Y'
+	     WHERE MBR_ID = #{mbrId}
+	       AND LGN_TRY_CNT >= 3
+	</update>
+	
+	
+	
+	
 	
 	<insert id="createNewAdminMbr"
 			parameterType="com.ktdsuniversity.admin.mbr.vo.MbrVO">

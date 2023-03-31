@@ -19,13 +19,23 @@
 	<mvc:resources location="/WEB-INF/resources/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**"></mvc:resources>
 	<mvc:resources location="/WEB-INF/resources/html/" mapping="/html/**"></mvc:resources>
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path=""/>
-			<mvc:exclude-mapping path=""/>
-			<bean id="" class=""></bean>
+			<mvc:mapping path="/"/>
+			<mvc:exclude-mapping path="/api/mbr/**"/>
+			<bean class="com.ktdsuniversity.admin.common.interceptors.BlockPageInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/"/>
+			<mvc:exclude-mapping path="/api/mbr/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/img/**"/>
+			<mvc:exclude-mapping path="/html/**"/>
+			<bean class="com.ktdsuniversity.admin.common.interceptors.SessionInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

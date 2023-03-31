@@ -48,7 +48,7 @@ align-left {
 }
 .input-group > input[type=checkbox] {
 	width:313px;
-	magrin: 5px;
+	margin: 0px;
 }
 .input-group > input[disabled] {
 	background-color: #fff4f4;
