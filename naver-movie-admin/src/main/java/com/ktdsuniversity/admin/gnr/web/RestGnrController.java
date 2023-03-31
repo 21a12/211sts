@@ -19,6 +19,20 @@ public class RestGnrController {
 
 	@Autowired
 	private GnrService gnrService;
+	
+	
+	@GetMapping("/api/gnr/dup/{mbrId}")
+	public ApiResponseVO doCheckDupMbrId(@PathVariable String mbrId) {
+		
+		boolean isSuccess= gnrService.readOneByGnrNm(mbrId);
+		
+		if (isSuccess) {
+			return new ApiResponseVO(ApiStatus.OK);
+		}
+		return new ApiResponseVO(ApiStatus.FAIL);
+	}
+		
+	
 
 	@PostMapping("/api/gnr/create")
 	public ApiResponseVO doCreateGnr(GnrVO gnrVO

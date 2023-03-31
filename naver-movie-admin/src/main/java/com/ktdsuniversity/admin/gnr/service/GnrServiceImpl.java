@@ -20,6 +20,11 @@ public class GnrServiceImpl implements GnrService {
 	}
 
 	@Override
+	public boolean readOneByGnrNm(String gnrNm) {
+		return gnrDAO.readOneByGnrNm(gnrNm) > 0;
+	}
+
+	@Override
 	public boolean createOneGnr(GnrVO gnrVO) {
 		return gnrDAO.createOneGnr(gnrVO) > 0;
 	}
@@ -33,5 +38,6 @@ public class GnrServiceImpl implements GnrService {
 	public boolean deleteOneGnr(int gnrId) {
 		return gnrDAO.deleteOneGnr(gnrId) > 0;
 	}
+
 
 }

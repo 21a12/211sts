@@ -8,6 +8,7 @@ public interface GnrDAO {
 
 	public List<GnrVO> readAll(String gnrNm);
 	
+	public int readOneByGnrNm(String gnrNm);
 	public int createOneGnr(GnrVO gnrVO);
 	public int updateOneGnr(GnrVO gnrVO);
 	public int deleteOneGnr(int gnrId);

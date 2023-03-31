@@ -32,6 +32,8 @@
 		$("#useYn").prop("checked", data.useyn == "Y");
 	})
 	
+	
+	
  	$("#gnrNm").keyup(function() {
 		
 		var that = this;
@@ -51,10 +53,11 @@
 					$(that).css("backgroundColor","#F00");
 				}
 			})
-			
 		}
-		
 	}) 
+	
+	
+	
 	
 	
 	$("#btn-new").click(function() {
@@ -69,6 +72,14 @@
 		
 		$("#useYn").prop("checked", false);
 	})
+	
+	
+	$("#all-check").click(function(){
+		var checked = $("#all-check").is(":checked");
+		$(".check-idx").prop("checked",checked);
+	});
+	
+	
 	
 	$("#btn-delete").click(function() {
 		var gnrId = $("#gnrId").val();
@@ -170,7 +181,7 @@
 											data-mdfyr="${gnr.mdfyr}" 
 											data-mdfydt="${gnr.mdfyDt}" >
 											<td>
-												<input type="checkbox" class="check_idx" value="${gnr.gnrId}" />
+												<input type="checkbox" class="check-idx" value="${gnr.gnrId}" />
 											</td>
 											<td>${index.index}</td>											
 											<td>${gnr.gnrId}</td>											
