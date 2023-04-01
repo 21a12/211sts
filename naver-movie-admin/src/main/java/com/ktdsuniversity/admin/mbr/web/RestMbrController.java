@@ -3,6 +3,8 @@ package com.ktdsuniversity.admin.mbr.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,18 +15,25 @@ import com.ktdsuniversity.admin.common.api.exceptions.ApiArgsException;
 import com.ktdsuniversity.admin.common.api.exceptions.ApiException;
 import com.ktdsuniversity.admin.common.api.vo.ApiResponseVO;
 import com.ktdsuniversity.admin.common.api.vo.ApiStatus;
+import com.ktdsuniversity.admin.common.interceptors.LoggingInterceptor;
 import com.ktdsuniversity.admin.mbr.service.MbrService;
 import com.ktdsuniversity.admin.mbr.vo.MbrVO;
 
 @RestController
 public class RestMbrController {
 
+	private static Logger logger = LoggerFactory.getLogger(RestMbrController.class);
+	
 	@Autowired
 	private MbrService mbrService;
 
 	@PostMapping("/api/mbr/lgn")
 	public ApiResponseVO doLoginAdminMember(MbrVO mbrVO, HttpSession session, HttpServletRequest request) {
 
+		logger.info("[ 로그인 시도 ]");
+		logger.info("[" + request.getMethod() + "]");
+		logger.info("[" + request.getRequestURI() + "]");
+		
 		if (mbrVO.getMbrId() == null || mbrVO.getMbrId().trim().length() == 0) {
 			throw new ApiArgsException("400", "로그인 아이디는 필수값 입니다.");
 		}
@@ -49,6 +58,8 @@ public class RestMbrController {
 	
 	@GetMapping("/api/mbr/dup/{mbrId}")
 	public ApiResponseVO doCheckDupMbrId(@PathVariable String mbrId) {
+		
+		logger.info("[ 멤버 아이디 등록시도 중복검사 : " + mbrId + " ]");
 		
 		int mbrCount = mbrService.readCountMbrById(mbrId);
 		

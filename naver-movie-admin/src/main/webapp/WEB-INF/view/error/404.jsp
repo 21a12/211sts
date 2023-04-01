@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	$().ready(function() {
 		alert("1")
-		location.href="${context}/"
+		// location.href="${context}/"
 	})
 </script>
 </head>

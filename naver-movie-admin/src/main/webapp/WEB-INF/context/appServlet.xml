@@ -36,12 +36,13 @@
 			<bean class="com.ktdsuniversity.admin.common.interceptors.SessionInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/"></property>
 		<property name="suffix" value=".jsp"></property>	
 	</bean>
+	
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>

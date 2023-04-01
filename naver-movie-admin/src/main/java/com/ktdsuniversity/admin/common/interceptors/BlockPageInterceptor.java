@@ -4,15 +4,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.ktdsuniversity.admin.mbr.vo.MbrVO;
 
 public class BlockPageInterceptor extends HandlerInterceptorAdapter{
 
+	private static Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		logger.info("[preHandle BlockPageInterceptor]");
+		logger.info("[" + request + "]");
+		logger.info("[" + request.getMethod() + "]");
+		logger.info("[" + request.getRequestURI() + "]");
+		
 		HttpSession session = request.getSession();
 		MbrVO member = (MbrVO) session.getAttribute("__ADMIN__");
 		
