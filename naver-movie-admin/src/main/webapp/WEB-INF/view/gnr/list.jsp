@@ -12,11 +12,21 @@
 <title>장르 관리</title>
 <jsp:include page="../include/stylescript.jsp"></jsp:include>
 <script type="text/javascript">
-	$().ready(function() {
+$().ready(function() {
 
 	console.log($("#isModify").val());
 	
-	$(".grid > table > tbody > tr").not(".grid > table > tbody > tr > td:first-child").click(function() {
+	
+	
+	$(".grid > table > tbody > tr").click(function() {
+		
+		var cnt = $(".check-idx:checked").length;
+		console.log("체크박스 checked 개수 : " + cnt);
+		if ($(".check-idx:checked").length) {
+			$(".check-idx:checked").each(function() {
+				console.log("체크박스.each ~ 할당된 value : " + $(this).val() + $(this).data());
+			})
+		}
 		
 		var data = $(this).data();
 		console.log(data);
@@ -24,6 +34,7 @@
 
 		$("#gnrId").val(data.gnrid);
 		$("#gnrNm").val(data.gnrnm);
+		nmData = data.gnrnm; // 수정 시 이름 중복 체크에 활용
 		$("#crtr").val(data.crtr);
 		$("#crtDt").val(data.crtdt);
 		$("#mdfyr").val(data.mdfyr);
@@ -34,7 +45,7 @@
 	
 	
 	
- 	$("#gnrNm").keyup(function() {
+ 	/* $("#gnrNm").keyup(function() {
 		
 		var that = this;
 		var value = $(that).val();
@@ -47,20 +58,21 @@
 		else {
 			$.get("${context}/api/gnr/dup/" + value, function(response) {
 				if (response.status == "200 OK") {
-					$(that).css("backgroundColor","#000");
+					$(that).css("backgroundColor","#FFF");
 				}
 				else if (response.status == "500") {
 					$(that).css("backgroundColor","#F00");
 				}
 			})
 		}
-	}) 
+	})  */
 	
 	
 	
 	
 	
 	$("#btn-new").click(function() {
+		nmData = "";
 		$("#gnrNm").css("backgroundColor","#FFF");
 		$("#isModify").val("false"); // 등록모드
 		$("#gnrId").val("");
@@ -82,12 +94,27 @@
 	
 	
 	$("#btn-delete").click(function() {
+		
+		var cnt = $(".check-idx:checked").length;
+		console.log(cnt);
+		if ($(".check-idx:checked").length) {
+			if (confirm("체크한 항목이 일괄 삭제됩니다.\n정말 삭제하시겠습니까?")) {
+				$(".check-idx:checked").each(function() {
+					$.get("${context}/api/gnr/delete/" + $(this).val());
+				})
+				setTimeout(() => location.reload(), 100);;
+				return;
+			}
+		} else {
+			
+		}
+		
 		var gnrId = $("#gnrId").val();
 		if (gnrId == "") {
 			alert("선택된 장르가 없습니다.")
 			return;
 		}
-		if (!confirm("정말 삭제하시겠습니까?")) {
+		if (!confirm("장르ID [ " + gnrId + " ] 정말 삭제하시겠습니까?")) {
 			return;
 		}
 		$.get("${context}/api/gnr/delete/" + gnrId, function(response) {
@@ -95,18 +122,10 @@
 		})
 	})
 	
+	
 	$("#btn-save").click(function() {
 		
-		if ($("#isModify").val() == "false") {
-			
-			 // 신규등록할때만 중복체크
-			var bgColor = $("#gnrNm").css("backgroundColor");
-			console.log(bgColor)
-			if(bgColor == "rbg(255,0,0)") {
-				alert("bgColor이미 사용중인 ID입니다");
-				return;
-			} 
-			
+		if ($("#isModify").val() == "false") { //신규
 			$.post("${context}/api/gnr/create", {gnrNm:$("#gnrNm").val()
 												, useYn:$("#useYn:checked").val()}
 												, function(response) {
@@ -135,7 +154,7 @@
 	});
 	
 	
-	});
+});
 </script>
 </head>
 <body>
@@ -180,17 +199,17 @@
 											data-crtdt="${gnr.crtDt}" 
 											data-mdfyr="${gnr.mdfyr}" 
 											data-mdfydt="${gnr.mdfyDt}" >
-											<td>
+											<td class="align-center">
 												<input type="checkbox" class="check-idx" value="${gnr.gnrId}" />
 											</td>
-											<td>${index.index}</td>											
-											<td>${gnr.gnrId}</td>											
-											<td>${gnr.gnrNm}</td>											
-											<td>${gnr.useYn}</td>											
-											<td>${gnr.crtr}</td>											
-											<td>${gnr.crtDt}</td>											
-											<td>${gnr.mdfyr}</td>											
-											<td>${gnr.mdfyDt}</td>											
+											<td>${index.index}</td>
+											<td>${gnr.gnrId}</td>
+											<td>${gnr.gnrNm}</td>
+											<td>${gnr.useYn}</td>
+											<td>${gnr.crtr}</td>
+											<td>${gnr.crtDt}</td>
+											<td>${gnr.mdfyr}</td>
+											<td>${gnr.mdfyDt}</td>
 										</tr>
 									</c:forEach>	
 								</c:when>

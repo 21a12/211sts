@@ -4,11 +4,11 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/errors/404</location>
+		<location>/error/404</location>
 	</error-page>
 	<error-page>
 		<error-code>405</error-code>
-		<location>/errors/405</location>
+		<location>/error/405</location>
 	</error-page>
 
 <!-- The front controller of this Spring Web application, responsible for handling all application requests -->

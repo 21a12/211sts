@@ -22,6 +22,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/"/>
+			<mvc:exclude-mapping path="/error/**"/>
 			<mvc:exclude-mapping path="/api/mbr/**"/>
 			<bean class="com.ktdsuniversity.admin.common.interceptors.BlockPageInterceptor"></bean>
 		</mvc:interceptor>

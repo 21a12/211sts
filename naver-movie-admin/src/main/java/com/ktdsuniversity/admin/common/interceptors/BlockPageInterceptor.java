@@ -19,9 +19,8 @@ public class BlockPageInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		
 		logger.info("[preHandle BlockPageInterceptor]");
-		logger.info("[" + request + "]");
-		logger.info("[" + request.getMethod() + "]");
-		logger.info("[" + request.getRequestURI() + "]");
+		logger.info("[request contextPath / method / requestURI: "
+				+ request.getContextPath() +" / "+ request.getMethod() +" / "+ request.getRequestURI() + "]");
 		
 		HttpSession session = request.getSession();
 		MbrVO member = (MbrVO) session.getAttribute("__ADMIN__");
@@ -29,7 +28,7 @@ public class BlockPageInterceptor extends HandlerInterceptorAdapter{
 		// 세션이 없는지 체크.
 		// 세션이 있다 > return false
 		if (member != null) {
-			response.sendRedirect(request.getContextPath() + "/mbr/list");
+			response.sendRedirect(request.getContextPath() + "/index");
 			return false;
 		}
 		// 세션이 없다 > return true

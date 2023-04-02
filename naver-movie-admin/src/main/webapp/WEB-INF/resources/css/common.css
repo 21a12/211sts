@@ -20,15 +20,19 @@ body {
 .item-align-center {
 	display: flex;
 	align-items: center;
+	align-items: center;
 	justify-content: center;
-	
 }
 .align-right {
 	text-align: right;
 }
-align-left {
+.align-left {
 	text-align: left;
 }
+.align-center {
+	text-align: center;
+}
+
 
 /* Inputs */
 .input-group {
@@ -50,9 +54,11 @@ align-left {
 	width:313px;
 	margin: 0px;
 }
-.input-group > input[disabled] {
+.input-group > input[disabled], #gnrId {
 	background-color: #fff4f4;
 }
+
+
 
 /* Button */
 .btn-primary {
@@ -74,6 +80,7 @@ align-left {
 }
 
 
+
 /* login */
 .login-group {
 	border: 1px solid #777;
@@ -85,6 +92,7 @@ align-left {
 	padding: 0px;
 	margin-bottom: 10px;
 }
+
 
 
 /* Main Layout */
@@ -171,6 +179,8 @@ align-left {
 	overflow: auto;
 	padding: 10px;
 }
+
+
 
 /* Grid */
 .content > .path {

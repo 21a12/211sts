@@ -21,15 +21,15 @@ public class RestGnrController {
 	private GnrService gnrService;
 	
 	
-	@GetMapping("/api/gnr/dup/{mbrId}")
-	public ApiResponseVO doCheckDupMbrId(@PathVariable String mbrId) {
+	@GetMapping("/api/gnr/dup/{gnrId}")
+	public ApiResponseVO doCheckDupMbrId(@PathVariable String gnrId) {
 		
-		boolean isSuccess= gnrService.readOneByGnrNm(mbrId);
+		boolean idCheck= gnrService.readOneByGnrNm(gnrId);
 		
-		if (isSuccess) {
-			return new ApiResponseVO(ApiStatus.OK);
+		if (idCheck) {
+			return new ApiResponseVO(ApiStatus.FAIL);
 		}
-		return new ApiResponseVO(ApiStatus.FAIL);
+		return new ApiResponseVO(ApiStatus.OK);
 	}
 		
 	
@@ -86,7 +86,7 @@ public class RestGnrController {
 			return new ApiResponseVO(ApiStatus.OK);
 		}
 		return new ApiResponseVO(ApiStatus.FAIL);
-	}
+	}	
 	
 		
 }

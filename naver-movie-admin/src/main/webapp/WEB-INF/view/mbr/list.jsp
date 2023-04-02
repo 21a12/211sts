@@ -19,6 +19,7 @@
 		$(".grid > table > tbody > tr").click(function() {
 			var data = $(this).data();
 			console.log(data);
+			$("#mbrId").css("backgroundColor","#fff4f4"); // 입력칸 색상변경 > 흰색
 			$("#isModify").val("true"); // 수정모드
 			$("#mbrId").attr("readonly",true); //입력제한
 			/* $("#mbrId").click(function() {
@@ -39,6 +40,11 @@
 		})
 		
 		$("#mbrId").keyup(function() {
+			if ($("#isModify").val() =="true") {
+				console.log("$('#isModify').val() : " + $("#isModify").val() 
+							+ " / 수정모드라서 색변경 기능 안되게 리턴중");
+				return; 
+			}
 			
 			var that = this;
 			var value = $(that).val();
@@ -64,9 +70,9 @@
 		
 		
 		$("#btn-new").click(function() {
-			$("#mbrId").css("backgroundColor","#FFF");
+			$("#mbrId").css("backgroundColor","#FFF"); // 입력칸 색상변경 > 흰색
 			$("#isModify").val("false"); // 등록모드
-			$("#mbrId").removeAttr("readonly"); //입력제한해제
+			$("#mbrId").removeAttr("readonly"); // 입력제한해제
 			$("#mbrId").val("");
 			$("#mbrNm").val("");
 			$("#crtDt").val("");
@@ -100,7 +106,7 @@
 		
 		$("#btn-save").click(function() {
 			
-			if ($("#lgnTryCnt").val() =="") {
+			if ($("#lgnTryCnt").val()=="") {
 				$("#lgnTryCnt").val(0)
 			}
 			

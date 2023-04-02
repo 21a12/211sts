@@ -16,9 +16,19 @@ public class ErrorController {
 	@RequestMapping("/error/404")
 	public String Error404(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("404 에러임");
-		logger.info(request.getMethod());
-		logger.info("" + request.getRequestURL());
+		logger.info("[request contextPath / method / requestURI: "
+				+ request.getContextPath() +" / "+ request.getMethod() +" / "+ request.getRequestURI() + "]");
+		
 		return "error/404";
+	}
+			
+	@RequestMapping("/error/405")
+	public String Error405(HttpServletRequest request, HttpServletResponse response) {
+		logger.info("405 에러임");
+		logger.info("[request contextPath / method / requestURI: "
+				+ request.getContextPath() +" / "+ request.getMethod() +" / "+ request.getRequestURI() + "]");
+		
+		return "error/405";
 	}
 	
 }

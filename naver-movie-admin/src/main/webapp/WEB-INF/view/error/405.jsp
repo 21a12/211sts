@@ -10,14 +10,14 @@
 <script type="text/javascript" src="${context}/js/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
-		alert("404err")
+		alert("405err")
 		location.href="${context}/"
 	})
 </script>
 </head>
 <body>
 	
-	<span style="font-size:20pt;">404err</span>
+	<span style="font-size:20pt;">405err</span>
 	
 </body>
 </html>

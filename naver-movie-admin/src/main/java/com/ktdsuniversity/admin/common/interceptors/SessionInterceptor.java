@@ -19,9 +19,8 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 
 		logger.info("[preHandle SessionInterceptor]");
-		logger.info("[" + request + "]");
-		logger.info("[" + request.getMethod() + "]");
-		logger.info("[" + request.getRequestURI() + "]");
+		logger.info("[request contextPath / method / requestURI: "
+				+ request.getContextPath() +" / "+ request.getMethod() +" / "+ request.getRequestURI() + "]");
 		
 		HttpSession session = request.getSession(); // Session 객체를 얻어온다.
 		// 세션 로그인 정보를 얻어온다.
