@@ -17,13 +17,15 @@ public class GnrController {
 	@Autowired
 	private GnrService gnrService;
 	
-	@GetMapping("/gnr/list")
-	public String viewGnrLIstPage(Model model
-			, @RequestParam(required=false) String gnrNm
-			, @RequestParam(required=false, defaultValue="1") int pageNO
-			, @RequestParam(required=false, defaultValue="10") int viewCnt) {
-		List<GnrVO> gnrList = gnrService.readAll(gnrNm);
+	@GetMapping("/gnr/list") // http://localhost:8080/admin/gnr/list?gnrNm=장르명&pageNo=2&viewCnt=10
+	public String viewGnrLIstPage(Model model, GnrVO gnrVO) {
+		List<GnrVO> gnrList = gnrService.readAll(gnrVO);
 		model.addAttribute("gnrList", gnrList);
+		model.addAttribute("gnrVO", gnrVO);
+//		model.addAttribute("gnrNm", gnrVO.getGnrNm());
+//		model.addAttribute("pageNo", gnrVO.getPageNo());
+//		model.addAttribute("viewCnt", gnrVO.getViewCnt());
+		
 		return "gnr/list";
 	}
 	

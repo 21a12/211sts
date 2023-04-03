@@ -12,7 +12,7 @@ import com.ktdsuniversity.admin.mbr.vo.MbrVO;
 
 public class SessionInterceptor extends HandlerInterceptorAdapter{
 	
-	private static Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
+	private static Logger logger = LoggerFactory.getLogger(SessionInterceptor.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

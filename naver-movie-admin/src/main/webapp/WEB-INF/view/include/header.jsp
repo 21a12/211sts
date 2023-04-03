@@ -3,17 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="context" value="${pageContext.request.contextPath}"></c:set>
 <style type="text/css">
-#login_info div {
-	display: inline-flex;
-	margin-left: 5px;
-}
-#login_info * {
-	color: white;
-	font-size:14pt;
-}
-#login_info  {
 
-}
 
 </style>
 <div class="header bg-black">

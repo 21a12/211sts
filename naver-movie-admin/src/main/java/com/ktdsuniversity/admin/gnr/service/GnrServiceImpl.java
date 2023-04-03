@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ktdsuniversity.admin.common.api.exceptions.ApiException;
 import com.ktdsuniversity.admin.gnr.dao.GnrDAO;
 import com.ktdsuniversity.admin.gnr.vo.GnrVO;
 
@@ -15,8 +16,8 @@ public class GnrServiceImpl implements GnrService {
 	private GnrDAO gnrDAO;
 	
 	@Override
-	public List<GnrVO> readAll(String gnrNm) {
-		return gnrDAO.readAll(gnrNm);
+	public List<GnrVO> readAll(GnrVO gnrVO) {
+		return gnrDAO.readAll(gnrVO);
 	}
 
 	@Override
@@ -37,6 +38,18 @@ public class GnrServiceImpl implements GnrService {
 	@Override
 	public boolean deleteOneGnr(int gnrId) {
 		return gnrDAO.deleteOneGnr(gnrId) > 0;
+	}
+
+	@Override
+	public boolean deleteSelectAll(List<Integer> gnrId) {
+		
+		int delCount = 	gnrDAO.deleteSelectAll(gnrId); 
+		boolean isSuccess = delCount == gnrId.size();
+		if (!isSuccess) {
+			throw new ApiException("500", "일괄 삭제 처리에 실패했습니다. 요청건수:"+gnrId.size()+", 삭제건수:"+delCount);
+		}
+		
+		return isSuccess;
 	}
 
 

@@ -12,7 +12,7 @@ import com.ktdsuniversity.admin.mbr.vo.MbrVO;
 
 public class BlockPageInterceptor extends HandlerInterceptorAdapter{
 
-	private static Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
+	private static Logger logger = LoggerFactory.getLogger(BlockPageInterceptor.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

@@ -1,6 +1,8 @@
-package com.ktdsuniversity.admin.gnr.vo;	
-	
-public class GnrVO {	
+package com.ktdsuniversity.admin.gnr.vo;
+
+import com.ktdsuniversity.admin.common.vo.AbstractVO;
+
+public class GnrVO extends AbstractVO{	
 	
 	private int gnrId;
 	private String gnrNm;

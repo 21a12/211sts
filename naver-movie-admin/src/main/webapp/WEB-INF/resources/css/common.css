@@ -34,6 +34,7 @@ body {
 }
 
 
+
 /* Inputs */
 .input-group {
 	padding: 2px 0;
@@ -59,6 +60,25 @@ body {
 }
 
 
+/* Search */
+.search-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+.search-group > label, #search-keyword {
+	margin-right:10px;
+	align-self: baseline;
+}
+.search-group > #search-keyword {
+	flex-grow: 1;
+	border: 1px solid #999;
+	border-radius: 5px;
+	padding: 5px;
+}
+
 
 /* Button */
 .btn-primary {
@@ -78,6 +98,14 @@ body {
 .btn-delete:active {
 	background-color: #fe8393;
 }
+.btn-search {
+	background-color: #382e98;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	font-size: 10pt;
+	padding: 5px;
+}
 
 
 
@@ -92,7 +120,17 @@ body {
 	padding: 0px;
 	margin-bottom: 10px;
 }
+#login_info div {
+	display: inline-flex;
+	margin-left: 5px;
+}
+#login_info * {
+	color: white;
+	font-size:14pt;
+}
+#login_info  {
 
+}
 
 
 /* Main Layout */
@@ -238,7 +276,44 @@ body {
 }
 
 
-	
+
+.pagenate {
+	display: flex;
+	margin: 10px 0;
+	justify-content: center;
+	align-items: center;
+}
+.pagenate ul {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.pagenate li {
+	display: inline-block;
+	margin: 0;
+	padding: 5px;
+	background-color: #e3e3e3;
+}
+.pagenate li a.on {
+	font-weight: bold;
+}
+.pagenate li a {
+	text-decoration: none;
+}
+
+
+/* margin */
+.mt-10 {
+	margin-top: 10px;
+}
+
+
+
+
+
+
+
 	
 
 
