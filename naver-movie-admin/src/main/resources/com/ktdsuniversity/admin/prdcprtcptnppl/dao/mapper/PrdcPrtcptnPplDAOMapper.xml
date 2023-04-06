@@ -2,8 +2,41 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Prdc_prtcptn_ppl">
+<mapper namespace="PrdcPrtcptnPpl">
 
+	<insert id="createNewPrdcPrtcptnPpl"
+			parameterType="com.ktdsuniversity.admin.prdcprtcptnppl.vo.PrdcPrtcptnPplVO">
+		INSERT INTO PRDC_PRTCPTN_PPL
+			 ( PRDC_PRTCPTN_ID
+			 , MV_ID
+			 , MV_PPL_ID
+			 , MSSN
+			 , RSPNSBLT_ROL_NM
+			 , CRT_DT
+			 , CRTR
+			 , MDFY_DT
+			 , MDFYR
+			 , USE_YN
+			 , DEL_YN)
+		VALUES
+			 ( 'MP-' || TO_CHAR(SYSDATE, 'YYYY-MM-DD') || '-' || LPAD(SEQ_PRDC_PRTCPTN_PPL_PK.NEXTVAL, 5, '0')
+			 , #{mvId}
+			 , #{mvPpl}
+			 , #{mssn}
+			 , #{rspnsbltRolNm}
+			 , SYSDATE
+			 , #{crtr}
+			 , #{SYSDATE}
+			 , #{mdfyr}
+			 , NVL(#{usdYn}, 'N') 
+			 , 'N' )
+	</insert>
 
+	<update id="deleteOnePrdcPrtcptnPplByPrdcPrtcptnPplId"
+			parameterType="string">
+		UPDATE PRDC_PRTCPTN_PPL
+		  SET DEL_YN = 'Y'
+		WHERE PRDC_PRTCPTN_ID = #{_parameter}
+	</update>
 
 </mapper>

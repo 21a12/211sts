@@ -4,6 +4,89 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Mv">
 
+	<insert id="createNewMv"
+			parameterType="com.ktdsuniversity.admin.mv.vo.MvVO">
+		INSERT INTO MOVIE.MV
+			 ( MV_ID
+			 , MV_TTL
+			 , ENG_TTL
+			 , SCRN_STT
+			 , SCRN_TM
+			 , OPNG_DT
+			 , GRD
+			 , PSTR
+			 , SMR
+			 , CRT_DT
+			 , CRTR
+			 , MDFY_DT
+			 , MDFYR
+			 , USE_YN
+			 , DEL_YN )
+		VALUES
+			 ( 'MV-' || TO_CHAR(SYSDATE, 'YYYY-MM-DD') || '-' || LPAD(SEQ_MV_PK.NEXTVAL, 5, '0')
+			 , #{mvTtl}
+			 , #{engTtl}
+			 , #{scrnStt}
+			 , #{scrnTm}
+			 , TO_DATE(#{opngDt}, 'YYYY-MM-DD')
+			 , #{grd}
+			 , #{pstr}
+			 , #{smr}
+			 , SYSDATE
+			 , #{crtr}
+			 , SYSDATE
+			 , #{mdfyr}
+			 , NVL(#{usdYn}, 'N') 
+			 , 'N' )
+	</insert>
 
 
+	
+	<update id="updateOneMv"
+			parameterType="com.ktdsuniversity.admin.mv.vo.MvVO">
+		UPDATE MOVIE.MV
+		   SET MV_TTL = #{mvTtl}   
+		   	 , ENG_TTL = #{engTtl}  
+		   	 , SCRN_STT = #{scrnStt} 
+		   	 , SCRN_TM = #{scrnTm}  
+		   	 , OPNG_DT = TO_DATE(#{opngDt}, 'YYYY-MM-DD') 
+		   	 , GRD = #{grd}                           
+		   	 , PSTR = #{pstr}                          
+		   	 , SMR = #{smr}                           
+		   	 , MDFY_DT = SYSDATE
+		   	 , MDFYR = #{mdfyr}
+		   	 , USE_YN = NVL(#{usdYn}, 'N')  
+		 WHERE MV_ID = #{mvId}
+	</update>
+	<update id="deleteOneMvByMvId"
+			parameterType="string">
+		UPDATE MOVIE.MV
+		   SET DEL_YN = 'Y
+		 WHERE MV_ID = #{_parameter} 
+	</update>
+	<update id="deleteMvIdList"
+			parameterType="arraylist">
+		UPDATE MOVIE.MV
+		   SET DEL_YN = 'Y
+		 WHERE MV_ID IN 
+		 <foreach collection="list" item="mvId" open="(" close=")" separator=", ">
+		 	#{mvId} 
+		 </foreach>
+	</update>
+	
+	
+	
+<!-- 	
+	<select id="readOneMvByMvId"
+			parameterType="string"
+			resultMap="resultMap">
+		
+	</select>
+	<select id="readAllMv"
+			parameterType="com.ktdsuniversity.admin.mv.vo.MvVO"
+			resultMap="resultMap">
+		
+	</select>
+	 -->
+	
 </mapper>

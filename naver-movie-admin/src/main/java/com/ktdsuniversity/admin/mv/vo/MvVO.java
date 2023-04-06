@@ -1,5 +1,11 @@
-package com.ktdsuniversity.admin.mv.vo;	
-	
+package com.ktdsuniversity.admin.mv.vo;
+
+import java.util.List;
+
+import com.ktdsuniversity.admin.mbr.vo.MbrVO;
+import com.ktdsuniversity.admin.mvgnr.vo.MvGnrVO;
+import com.ktdsuniversity.admin.prdcprtcptnppl.vo.PrdcPrtcptnPplVO;
+
 public class MvVO {	
 	
 	private String mvId;
@@ -17,6 +23,12 @@ public class MvVO {
 	private String mdfyr;
 	private String useYn;
 	private String delYn;
+	
+	private List<MvGnrVO> gnrList;
+	private List<PrdcPrtcptnPplVO> pplList;
+	private MbrVO crtrMbrVO;
+	private MbrVO mdfyrMbrVO;
+	
 	public String getMvId() {
 		return mvId;
 	}
@@ -106,6 +118,31 @@ public class MvVO {
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
+	}
+	
+	public List<MvGnrVO> getGnrList() {
+		return gnrList;
+	}
+	public void setGnrList(List<MvGnrVO> gnrList) {
+		this.gnrList = gnrList;
+	}
+	public List<PrdcPrtcptnPplVO> getPplList() {
+		return pplList;
+	}
+	public void setPplList(List<PrdcPrtcptnPplVO> pplList) {
+		this.pplList = pplList;
+	}
+	public MbrVO getCrtrMbrVO() {
+		return crtrMbrVO;
+	}
+	public void setCrtrMbrVO(MbrVO crtrMbrVO) {
+		this.crtrMbrVO = crtrMbrVO;
+	}
+	public MbrVO getMdfyrMbrVO() {
+		return mdfyrMbrVO;
+	}
+	public void setMdfyrMbrVO(MbrVO mdfyrMbrVO) {
+		this.mdfyrMbrVO = mdfyrMbrVO;
 	}
 	
 }	

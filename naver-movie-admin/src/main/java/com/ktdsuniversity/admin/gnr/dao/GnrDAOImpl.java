@@ -24,6 +24,11 @@ public class GnrDAOImpl extends SqlSessionDaoSupport implements GnrDAO {
 	}
 	
 	@Override
+	public List<GnrVO> readAllGnrVONoPaginationi(String gnrNm) {
+		return getSqlSession().selectList("Gnr.readAllGnrVONoPaginationi", gnrNm);
+	}
+	
+	@Override
 	public int readOneByGnrNm(String gnrNm) {
 		return getSqlSession().selectOne("Gnr.readOneByGnrNm", gnrNm);
 	}

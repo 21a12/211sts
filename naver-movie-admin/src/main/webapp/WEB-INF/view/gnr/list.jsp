@@ -226,7 +226,7 @@ $().ready(function() {
 												, function(response) {
 				if (response.status == "200 OK") {
 					console.log("신규 성공됨")
-					//location.reload(); //새로고침
+					location.reload(); //새로고침
 				}
 				else {
 					alert(response.errorCode + " / " + response.message);
@@ -240,7 +240,7 @@ $().ready(function() {
 												, function(response) {
 				if (response.status == "200 OK") {
 					console.log("수정 성공됨")
-					//location.reload(); //새로고침
+					location.reload(); //새로고침
 				}
 				else {
 					alert(response.errorCode + " / " + response.message);
@@ -390,7 +390,7 @@ function movePage(pageNo) {
 						 -->
 						<input type="hidden" id="isModify" value="false" />
 						<div class="input-group inline">
-							<label for="gnrId" style="width:150px;">장르 ID</label><input type="text" id="gnrId" name="gnrId" readonly value=""/>
+							<label for="gnrId" style="width:150px;">장르 ID</label><input type="text" id="gnrId" class="readonly" name="gnrId" readonly value=""/>
 						</div>
 						<div class="input-group inline">
 							<label for="gnrNm" style="width:150px;">장르명</label><input type="text" id="gnrNm"  name="gnrNm" value=""/>

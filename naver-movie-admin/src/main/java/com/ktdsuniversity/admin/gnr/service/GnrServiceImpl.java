@@ -19,6 +19,11 @@ public class GnrServiceImpl implements GnrService {
 	public List<GnrVO> readAll(GnrVO gnrVO) {
 		return gnrDAO.readAll(gnrVO);
 	}
+	
+	@Override
+	public List<GnrVO> readAllGnrVONoPaginationi(String gnrNm) {
+		return gnrDAO.readAllGnrVONoPaginationi(gnrNm);
+	}
 
 	@Override
 	public boolean readOneByGnrNm(String gnrNm) {
@@ -51,6 +56,7 @@ public class GnrServiceImpl implements GnrService {
 		
 		return isSuccess;
 	}
+
 
 
 }

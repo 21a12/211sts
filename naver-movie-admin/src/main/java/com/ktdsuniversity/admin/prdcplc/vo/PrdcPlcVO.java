@@ -1,4 +1,4 @@
-package com.ktdsuniversity.admin.prdc_plc.vo;	
+package com.ktdsuniversity.admin.prdcplc.vo;	
 	
 public class PrdcPlcVO {	
 	

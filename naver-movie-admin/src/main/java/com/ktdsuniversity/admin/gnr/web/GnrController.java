@@ -29,5 +29,17 @@ public class GnrController {
 		return "gnr/list";
 	}
 	
+	@GetMapping("/gnr/search")
+	public String viewGnrSearchPage(
+			@RequestParam(required = false) String gnrNm
+			, Model model) {
+		model.addAttribute("gnrNm", gnrNm);
+		if(gnrNm != null && gnrNm.length() > 0) {
+			List<GnrVO> gnrList = gnrService.readAllGnrVONoPaginationi(gnrNm);
+			model.addAttribute("gnrList",gnrList);
+		}
+		
+		return "gnr/search";
+	}
 	
 }

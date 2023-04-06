@@ -28,6 +28,27 @@
 		ORDER BY G.GNR_ID ASC
 		<include refid="Common.page_footer"></include>
 	</select>
+	<select id="readAllGnrVONoPaginationi"
+			parameterType="string"
+			resultType="com.ktdsuniversity.admin.gnr.vo.GnrVO">
+		SELECT G.GNR_ID
+			 , G.GNR_NM
+			 , TO_CHAR(G.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') CRT_DT
+			 , G.CRTR
+			 , TO_CHAR(G.MDFY_DT, 'YYYY-MM-DD HH24:MI:SS') MDFY_DT
+			 , G.MDFYR
+			 , G.USE_YN
+			 , G.DEL_YN
+		  FROM GNR G
+		 INNER JOIN MBR CRT_M
+		    ON G.CRTR = CRT_M.MBR_ID
+		 INNER JOIN MBR MDFY_M
+		    ON G.MDFYR = MDFY_M.MBR_ID
+		WHERE G.DEL_YN = 'N'
+		  AND G.USE_YN = 'Y'
+		  AND G.GNR_NM LIKE '%' || #{_parameter} || '%'
+		ORDER BY G.GNR_NM ASC
+	</select>
 	<select id="readOneByGnrNm"
 			parameterType="string"
 			resultType="_int">

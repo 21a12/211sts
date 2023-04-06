@@ -1,4 +1,4 @@
-package com.ktdsuniversity.admin.prdc_plc.service;
+package com.ktdsuniversity.admin.prdcplc.service;
 
 public class PrdcPlcServiceImpl implements PrdcPlcService {
 

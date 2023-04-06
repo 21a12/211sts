@@ -1,5 +1,10 @@
-package com.ktdsuniversity.admin.mvgnr.vo;	
-	
+package com.ktdsuniversity.admin.mvgnr.vo;
+
+import java.util.List;
+
+import com.ktdsuniversity.admin.gnr.vo.GnrVO;
+import com.ktdsuniversity.admin.mbr.vo.MbrVO;
+
 public class MvGnrVO {	
 	
 	private String mvId;
@@ -10,6 +15,16 @@ public class MvGnrVO {
 	private String mdfyr;
 	private String useYn;
 	private String delYn;
+	
+	// 장르 선택창에서 체크박스한 항목의 리스트를 받아오는 것
+	private List<String> deleted;	// gnrId, gnrId, gnrId ... 여러개는 콤마로 구분
+	
+	private GnrVO gnrVO;
+	
+	private MbrVO crtrMbrVO;
+	private MbrVO mdfyrMbrVO;
+	
+	
 	public String getMvId() {
 		return mvId;
 	}
@@ -57,6 +72,34 @@ public class MvGnrVO {
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
+	}
+	
+	
+	public List<String> getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(List<String> deleted) {
+		this.deleted = deleted;
+	}
+	public GnrVO getGnrVO() {
+		return gnrVO;
+	}
+	public void setGnrVO(GnrVO gnrVO) {
+		this.gnrVO = gnrVO;
+	}
+	
+	
+	public MbrVO getCrtrMbrVO() {
+		return crtrMbrVO;
+	}
+	public void setCrtrMbrVO(MbrVO crtrMbrVO) {
+		this.crtrMbrVO = crtrMbrVO;
+	}
+	public MbrVO getMdfyrMbrVO() {
+		return mdfyrMbrVO;
+	}
+	public void setMdfyrMbrVO(MbrVO mdfyrMbrVO) {
+		this.mdfyrMbrVO = mdfyrMbrVO;
 	}
 	
 }	

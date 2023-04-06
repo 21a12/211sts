@@ -1,4 +1,4 @@
-package com.ktdsuniversity.admin.prdc_plc.dao;
+package com.ktdsuniversity.admin.prdcplc.dao;
 
 public class PrdcPlcDAOImpl implements PrdcPlcDAO {
 

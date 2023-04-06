@@ -2,8 +2,37 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Mv_gnr">
+<mapper namespace="MvGnr">
 
+	<insert id="createNewMvGnr"
+			parameterType="com.ktdsuniversity.admin.mvgnr.vo.MvGnrVO">
+		INSERT INTO MV_GNR
+			 ( MV_ID
+			 , GNR_ID
+			 , CRT_DT
+			 , CRTR
+			 , MDFY_DT
+			 , MDFYR
+			 , USE_YN
+			 , DEL_YN )
+		VALUES
+			 ( #{mvId}
+			 , #{gnrId}
+			 , SYSDATE
+			 , #{crtr}
+			 , SYSDATE
+			 , #{mdfyr}
+			 , NVL(#{useYn}, 'N') 
+			 , 'N' )
+	</insert>
 
+	<update id="deleteOneMvGnrIdAndMvId"
+			parameterType="com.ktdsuniversity.admin.mvgnr.vo.MvGnrVO">
+		UPDATE MV_GNR
+		   SET DEL_YN='Y'
+		 WHERE MV_ID = #{mvId}  
+		   AND GNR_ID = #{gnrId} 
+	</update>
+	
 
 </mapper>

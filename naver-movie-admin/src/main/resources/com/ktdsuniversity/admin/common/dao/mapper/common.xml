@@ -6,8 +6,7 @@
 	
 	<sql id="page_header">
 		SELECT B.*
-		     , B.TOTAL_COUNT
-		     , FLOOR(B.TOTAL_COUNT / #{viewCnt}) LAST_PAGE
+		     , CEIL(B.TOTAL_COUNT / #{viewCnt}) -1 LAST_PAGE
 		     , FLOOR(FLOOR(B.TOTAL_COUNT / #{viewCnt}) / 10) LAST_GROUP
 		  FROM (SELECT R.*
 		             , ROWNUM RNUM

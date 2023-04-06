@@ -2,6 +2,9 @@ package com.ktdsuniversity.admin.common.vo;
 
 public abstract class AbstractVO {
 	
+	private String startDt;
+	private String endDt;
+	
 	private int pageNo;
 	private int viewCnt;
 	private int totalCount;
@@ -16,6 +19,20 @@ public abstract class AbstractVO {
 		this.pageNo = 0;
 		this.viewCnt = 10;
 	}
+	
+	public String getStartDt() {
+		return startDt;
+	}
+	public void setStartDt(String startDt) {
+		this.startDt = startDt;
+	}
+	public String getEndDt() {
+		return endDt;
+	}
+	public void setEndDt(String endDt) {
+		this.endDt = endDt;
+	}
+	
 	
 	public int getPageNo() {
 		return pageNo;

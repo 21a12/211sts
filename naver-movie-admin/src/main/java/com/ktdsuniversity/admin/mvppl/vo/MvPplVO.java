@@ -1,9 +1,12 @@
-package com.ktdsuniversity.admin.mvppl.vo;	
-	
-public class MvPplVO {	
+package com.ktdsuniversity.admin.mvppl.vo;
+
+import com.ktdsuniversity.admin.common.vo.AbstractVO;
+import com.ktdsuniversity.admin.mbr.vo.MbrVO;
+
+public class MvPplVO extends AbstractVO {	
 	
 	private String mvPplId;
-	private String prlfPctr;
+	private String prflPctr;
 	private String nm;
 	private String rlNm;
 	private String crtDt;
@@ -12,17 +15,24 @@ public class MvPplVO {
 	private String mdfyr;
 	private String useYn;
 	private String delYn;
+	
+	private MbrVO crtrMbrVO;
+	private MbrVO mdfyrMbrVO;
+	
+	private String isDeletePctr;
+
+	
 	public String getMvPplId() {
 		return mvPplId;
 	}
 	public void setMvPplId(String mvPplId) {
 		this.mvPplId = mvPplId;
 	}
-	public String getPrlfPctr() {
-		return prlfPctr;
+	public String getPrflPctr() {
+		return prflPctr;
 	}
-	public void setPrlfPctr(String prlfPctr) {
-		this.prlfPctr = prlfPctr;
+	public void setPrflPctr(String prflPctr) {
+		this.prflPctr = prflPctr;
 	}
 	public String getNm() {
 		return nm;
@@ -71,6 +81,26 @@ public class MvPplVO {
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
+	}
+	
+	public MbrVO getCrtrMbrVO() {
+		return crtrMbrVO;
+	}
+	public void setCrtrMbrVO(MbrVO crtrMbrVO) {
+		this.crtrMbrVO = crtrMbrVO;
+	}
+	public MbrVO getMdfyrMbrVO() {
+		return mdfyrMbrVO;
+	}
+	public void setMdfyrMbrVO(MbrVO mdfyrMbrVO) {
+		this.mdfyrMbrVO = mdfyrMbrVO;
+	}
+	
+	public String getIsDeletePctr() {
+		return isDeletePctr;
+	}
+	public void setIsDeletePctr(String isDeletePctr) {
+		this.isDeletePctr = isDeletePctr;
 	}
 	
 }	
