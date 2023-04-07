@@ -57,6 +57,33 @@
 		<include refid="Common.page_footer"></include>
 	</select>
 	
+	<select id="readAllMvPplNoPagination"
+			parameterType="string"
+			resultType="com.ktdsuniversity.admin.mvppl.vo.MvPplVO">
+		SELECT MP.MV_PPL_ID
+			 , MP.NM
+			 , MP.RL_NM
+			 , MP.PRFL_PCTR
+			 , TO_CHAR(MP.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') CRT_DT
+			 , MP.CRTR
+			 , TO_CHAR(MP.MDFY_DT, 'YYYY-MM-DD HH24:MI:SS') MDFY_DT
+			 , MP.MDFYR
+			 , MP.USE_YN
+			 , MP.DEL_YN
+			 , CRTR_M.MBR_NM CRTR_MBR_NM
+			 , MDFYR_M.MBR_NM MDFYR_MBR_NM
+		 FROM MV_PPL MP
+		INNER JOIN MBR CRTR_M
+		   ON MP.CRTR = CRTR_M.MBR_ID
+		INNER JOIN MBR MDFYR_M
+		   ON MP.MDFYR = MDFYR_M.MBR_ID
+		WHERE MP.DEL_YN = 'N'
+		  AND MP.USE_YN = 'Y'
+		  AND MP.NM LIKE '%' || #{_parameter} || '%'
+		ORDER BY MP.NM ASC
+	</select>
+	
+	
 	<select id="readOneMvPplVOByMvPplId"
 			parameterType="string"
 			resultType="com.ktdsuniversity.admin.mvppl.vo.MvPplVO">

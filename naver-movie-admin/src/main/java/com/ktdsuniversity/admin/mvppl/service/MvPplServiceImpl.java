@@ -71,6 +71,14 @@ public class MvPplServiceImpl implements MvPplService {
 	}
 
 	@Override
+	public List<MvPplVO> readAllMvPplNoPagination(String mvPplNm) {
+		return mvPplDAO.readAllMvPplNoPagination(mvPplNm);
+	}
+	
+	
+	
+	
+	@Override
 	public boolean createOneMvPpl(MvPplVO mvPplVO, MultipartFile uploadFile) {
 
 		if (uploadFile != null && !uploadFile.isEmpty()) {
@@ -181,5 +189,6 @@ public class MvPplServiceImpl implements MvPplService {
 
 		return isSuccess;
 	}
+
 
 }

@@ -28,7 +28,7 @@
 		ORDER BY G.GNR_ID ASC
 		<include refid="Common.page_footer"></include>
 	</select>
-	<select id="readAllGnrVONoPaginationi"
+	<select id="readAllGnrVONoPagination"
 			parameterType="string"
 			resultType="com.ktdsuniversity.admin.gnr.vo.GnrVO">
 		SELECT G.GNR_ID

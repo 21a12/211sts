@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ktdsuniversity.admin.common.util.DownloadUtil;
+import com.ktdsuniversity.admin.gnr.vo.GnrVO;
 import com.ktdsuniversity.admin.mvppl.service.MvPplService;
 import com.ktdsuniversity.admin.mvppl.vo.MvPplVO;
 
@@ -52,6 +54,21 @@ public class MvPplController {
 		}
 		DownloadUtil dnUtil = new DownloadUtil(response, request, profilePath + "/" + filename);
 		dnUtil.download(filename);
+	}
+	
+	@GetMapping("/mvppl/search")
+	public String viewGnrSearchPage(
+			@RequestParam(required = false) String nm
+			, @RequestParam(required = false) String targetId
+			, Model model) {
+		model.addAttribute("nm", nm);
+		model.addAttribute("targetId", targetId);
+		if(nm != null && nm.length() > 0) {
+			List<MvPplVO> mvPplList = mvPplService.readAllMvPplNoPagination(nm);
+			model.addAttribute("mvPplList",mvPplList);
+		}
+		
+		return "mvppl/search";
 	}
 	
 	

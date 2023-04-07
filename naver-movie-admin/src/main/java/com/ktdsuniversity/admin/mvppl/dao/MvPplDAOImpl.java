@@ -22,6 +22,12 @@ public class MvPplDAOImpl extends SqlSessionDaoSupport implements MvPplDAO {
 	public List<MvPplVO> readAllMvPpl(MvPplVO mvPplVO) {
 		return getSqlSession().selectList("MvPpl.readAllMvPpl", mvPplVO);
 	}
+	
+	@Override
+	public List<MvPplVO> readAllMvPplNoPagination(String mvPplNm) {
+		return getSqlSession().selectList("MvPpl.readAllMvPplNoPagination", mvPplNm);
+	}
+	
 
 	@Override
 	public MvPplVO readOneMvPplVOByMvPplId(String mvPplId) {

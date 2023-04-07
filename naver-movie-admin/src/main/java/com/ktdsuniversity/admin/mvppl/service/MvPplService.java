@@ -9,6 +9,8 @@ import com.ktdsuniversity.admin.mvppl.vo.MvPplVO;
 public interface MvPplService {
 	
 	public List<MvPplVO> readAllMvPpl(MvPplVO mvPplVO);
+	public List<MvPplVO> readAllMvPplNoPagination(String mvPplNm);
+	
 	public boolean createOneMvPpl(MvPplVO mvPplVO, MultipartFile uploadFile);
 	public boolean updateOneMvPpl(MvPplVO mvPplVO, MultipartFile uploadFile);
 	public boolean deleteOneMyPpl(String mvPplId);

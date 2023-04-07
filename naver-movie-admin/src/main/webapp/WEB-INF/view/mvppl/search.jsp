@@ -6,10 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>장르 검색</title>
+<title>영화인 검색</title>
 <jsp:include page="../include/stylescript.jsp"></jsp:include>
 <script type="text/javascript">
+
+var targetId;
+
 $().ready(function() {
+	
+	targetId = targetId || "${targetId}";
+	console.log(targetId);
+	$("#targetId").val(targetId || "${targetId}");
 	
 	
 	$("#all-check").change(function(){
@@ -32,13 +39,14 @@ $().ready(function() {
 		
 		var checkbox = $(".check-idx:checked");
 		if (checkbox.length == 0) {
-			alert("장르를 선택하세요");
+			alert("영화인을 선택하세요");
 			return;
 		}
 		
 		checkbox.each(function() {
 			var each = $(this).closest("tr").data();
-			opener.addGnrFn(each);
+			each.id = targetId;
+			opener.addPplFn(each);
 			console.log(each);
 		})
 		
@@ -52,19 +60,20 @@ $().ready(function() {
 <body>
 
 	<div class="search-popup content">
-		<h1>장르 검색</h1>
+		<h1>영화인 검색</h1>
 		
 		<form>
 			<div class="search-group">
-				<label for="">장르명</label>
-				<input type="text" name="gnrNm" class="grow-1 mr-10" value="${gnrNm}">
+				<label for="">영화인 이름</label>
+				<input type="text" name="nm" class="grow-1 mr-10" value="${nm}">
+				<input type="hidden" name="targetId" id="targetId">
 				<button class="btn-search" id="btn-search">검색</button>
 			</div>
 		</form>
 		
 		<div class="grid">
 			<div class="grid-count align-right">
-						총 ${gnrList.size() > 0 ? gnrList.size() : 0}건
+						총 ${mvPplList.size() > 0 ? mvPplList.size() : 0}건
 			</div>
 			<table>
 				<thead>
@@ -72,28 +81,28 @@ $().ready(function() {
 						<th>
 							<input type="checkbox" id="all-check">
 						</th>
-						<th>장르명</th>
+						<th>영화인명</th>
 						<th>등록일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${not empty gnrList}">
-							<c:forEach items="${gnrList}" var="gnr">
-								<tr data-gnrid="${gnr.gnrId}"
-								    data-gnrnm="${gnr.gnrNm}">
+						<c:when test="${not empty mvPplList}">
+							<c:forEach items="${mvPplList}" var="mvPpl">
+								<tr data-mvpplid="${mvPpl.mvPplId}"
+								    data-nm="${mvPpl.nm}">
 									<td class="align-center">
-										<input type="checkbox" class="check-idx" value="${gnr.gnrId}">
+										<input type="checkbox" class="check-idx" value="${mvPpl.mvPplId}">
 									</td>
-									<td>${gnr.gnrNm}</td>
-									<td>${gnr.crtDt}</td>
+									<td>${mvPpl.nm}</td>
+									<td>${mvPpl.crtDt}</td>
 								</tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
 									<tr>
 										<td colspan="3" class="no-items">
-											검색된 장르가 없습니다.
+											검색된 영화인이 없습니다.
 										</td>
 									</tr>
 								</c:otherwise>

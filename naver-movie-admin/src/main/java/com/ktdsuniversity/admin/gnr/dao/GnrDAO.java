@@ -7,7 +7,7 @@ import com.ktdsuniversity.admin.gnr.vo.GnrVO;
 public interface GnrDAO {
 
 	public List<GnrVO> readAll(GnrVO gnrVO);
-	public List<GnrVO> readAllGnrVONoPaginationi(String gnrNm);
+	public List<GnrVO> readAllGnrVONoPagination(String gnrNm);
 	
 	public int readOneByGnrNm(String gnrNm);
 	public int createOneGnr(GnrVO gnrVO);

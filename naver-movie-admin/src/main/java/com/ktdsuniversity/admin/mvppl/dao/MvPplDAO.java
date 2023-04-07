@@ -7,6 +7,9 @@ import com.ktdsuniversity.admin.mvppl.vo.MvPplVO;
 public interface MvPplDAO {
 	
 	public List<MvPplVO> readAllMvPpl(MvPplVO mvPplVO);
+	public List<MvPplVO> readAllMvPplNoPagination(String mvPplNm);
+	
+	
 	public MvPplVO readOneMvPplVOByMvPplId(String mvPplId);
 	
 	public int createOneMvPpl(MvPplVO mvPplVO);

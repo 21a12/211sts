@@ -35,7 +35,7 @@ public class GnrController {
 			, Model model) {
 		model.addAttribute("gnrNm", gnrNm);
 		if(gnrNm != null && gnrNm.length() > 0) {
-			List<GnrVO> gnrList = gnrService.readAllGnrVONoPaginationi(gnrNm);
+			List<GnrVO> gnrList = gnrService.readAllGnrVONoPagination(gnrNm);
 			model.addAttribute("gnrList",gnrList);
 		}
 		
