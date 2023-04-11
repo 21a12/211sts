@@ -9,7 +9,7 @@ public class PrdcPrtcptnPplVO {
 	
 	private String prdcPrtcptnId;
 	private String mvId;
-	private String mvPpl;
+	private String mvPplId;
 	private String mssn;
 	private String rspnsbltRolNm;
 	private String crtDt;
@@ -19,7 +19,9 @@ public class PrdcPrtcptnPplVO {
 	private String useYn;
 	private String delYn;
 	
-	private List<String> deleted;	// prdcPrtcptnId 
+	private String added; 
+	private String modified; 
+	private String deleted;	// prdcPrtcptnId 
 	
 	private MvPplVO mvPplVO;
 	private MbrVO crtrMbrVO;
@@ -39,11 +41,11 @@ public class PrdcPrtcptnPplVO {
 	public void setMvId(String mvId) {
 		this.mvId = mvId;
 	}
-	public String getMvPpl() {
-		return mvPpl;
+	public String getMvPplId() {
+		return mvPplId;
 	}
-	public void setMvPpl(String mvPpl) {
-		this.mvPpl = mvPpl;
+	public void setMvPplId(String mvPplId) {
+		this.mvPplId = mvPplId;
 	}
 	public String getMssn() {
 		return mssn;
@@ -95,10 +97,22 @@ public class PrdcPrtcptnPplVO {
 	}
 	
 	
-	public List<String> getDeleted() {
+	public String getAdded() {
+		return added;
+	}
+	public void setAdded(String added) {
+		this.added = added;
+	}
+	public String getModified() {
+		return modified;
+	}
+	public void setModified(String modified) {
+		this.modified = modified;
+	}
+	public String getDeleted() {
 		return deleted;
 	}
-	public void setDeleted(List<String> deleted) {
+	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
 	
@@ -109,6 +123,7 @@ public class PrdcPrtcptnPplVO {
 	public void setMvPplVO(MvPplVO mvPplVO) {
 		this.mvPplVO = mvPplVO;
 	}
+	
 	
 	public MbrVO getCrtrMbrVO() {
 		return crtrMbrVO;

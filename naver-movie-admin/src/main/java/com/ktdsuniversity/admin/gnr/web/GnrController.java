@@ -18,7 +18,7 @@ public class GnrController {
 	private GnrService gnrService;
 	
 	@GetMapping("/gnr/list") // http://localhost:8080/admin/gnr/list?gnrNm=장르명&pageNo=2&viewCnt=10
-	public String viewGnrLIstPage(Model model, GnrVO gnrVO) {
+	public String viewGnrListPage(Model model, GnrVO gnrVO) {
 		List<GnrVO> gnrList = gnrService.readAll(gnrVO);
 		model.addAttribute("gnrList", gnrList);
 		model.addAttribute("gnrVO", gnrVO);

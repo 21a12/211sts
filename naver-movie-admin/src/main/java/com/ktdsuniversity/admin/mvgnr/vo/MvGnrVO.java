@@ -1,7 +1,5 @@
 package com.ktdsuniversity.admin.mvgnr.vo;
 
-import java.util.List;
-
 import com.ktdsuniversity.admin.gnr.vo.GnrVO;
 import com.ktdsuniversity.admin.mbr.vo.MbrVO;
 
@@ -16,8 +14,8 @@ public class MvGnrVO {
 	private String useYn;
 	private String delYn;
 	
-	// 장르 선택창에서 체크박스한 항목의 리스트를 받아오는 것
-	private List<String> deleted;	// gnrId, gnrId, gnrId ... 여러개는 콤마로 구분
+	private String added;
+	private String deleted;
 	
 	private GnrVO gnrVO;
 	
@@ -75,12 +73,20 @@ public class MvGnrVO {
 	}
 	
 	
-	public List<String> getDeleted() {
+	public String getAdded() {
+		return added;
+	}
+	public void setAdded(String added) {
+		this.added = added;
+	}
+	public String getDeleted() {
 		return deleted;
 	}
-	public void setDeleted(List<String> deleted) {
+	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
+	
+	
 	public GnrVO getGnrVO() {
 		return gnrVO;
 	}

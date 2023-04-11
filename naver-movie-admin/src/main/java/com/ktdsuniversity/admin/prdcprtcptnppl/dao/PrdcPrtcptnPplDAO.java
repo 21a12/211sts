@@ -5,6 +5,7 @@ import com.ktdsuniversity.admin.prdcprtcptnppl.vo.PrdcPrtcptnPplVO;
 public interface PrdcPrtcptnPplDAO {
 	
 	public int createNewPrdcPrtcptnPpl(PrdcPrtcptnPplVO prdcPrtcptnPplVO);
+	public int updateOnePrdcPrtcptnPpl(PrdcPrtcptnPplVO prdcPrtcptnPplVO);
 	public int deleteOnePrdcPrtcptnPplByPrdcPrtcptnPplId(String prdcPrtcptnPplId);
 
 }

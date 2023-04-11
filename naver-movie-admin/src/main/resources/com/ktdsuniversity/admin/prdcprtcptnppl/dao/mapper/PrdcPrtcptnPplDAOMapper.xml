@@ -21,16 +21,30 @@
 		VALUES
 			 ( 'MP-' || TO_CHAR(SYSDATE, 'YYYY-MM-DD') || '-' || LPAD(SEQ_PRDC_PRTCPTN_PPL_PK.NEXTVAL, 5, '0')
 			 , #{mvId}
-			 , #{mvPpl}
+			 , #{mvPplId}
 			 , #{mssn}
 			 , #{rspnsbltRolNm}
 			 , SYSDATE
 			 , #{crtr}
-			 , #{SYSDATE}
+			 , SYSDATE
 			 , #{mdfyr}
-			 , NVL(#{usdYn}, 'N') 
+			 , NVL(#{useYn}, 'N') 
 			 , 'N' )
 	</insert>
+	
+	
+	<update id="updateOnePrdcPrtcptnPpl"
+			parameterType="com.ktdsuniversity.admin.prdcprtcptnppl.vo.PrdcPrtcptnPplVO">
+		UPDATE PRDC_PRTCPTN_PPL
+		  SET RSPNSBLT_ROL_NM = #{rspnsbltRolNm}
+		  	, MDFYR = #{mdfyr}
+		  	, MDFY_DT = SYSDATE
+		WHERE PRDC_PRTCPTN_ID = #{prdcPrtcptnId}
+			
+		
+	</update>
+	
+	
 
 	<update id="deleteOnePrdcPrtcptnPplByPrdcPrtcptnPplId"
 			parameterType="string">

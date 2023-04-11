@@ -4,8 +4,59 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Mv">
 
+	<resultMap type="com.ktdsuniversity.admin.mv.vo.MvVO" 
+				id="mvVOMap"
+				autoMapping="true">
+		<id property="mvId" column="MV_ID"></id>
+		<association property="crtrMbrVO"
+					javaType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+			<id property="mbrId" column="CRTR"/>
+			<result property="mbrNm" column="CRTR_NM"/>
+		</association>
+		<association property="mdfyrMbrVO"
+					javaType="com.ktdsuniversity.admin.mbr.vo.MbrVO">
+			<id property="mbrId" column="MDFYR"/>
+			<result property="mbrNm" column="MDFYR_NM"/>
+		</association>
+		<collection property="gnrList" 
+					ofType="com.ktdsuniversity.admin.mvgnr.vo.MvGnrVO">
+			<id property="gnrId" column="GNR_ID"/>
+			<result property="mvId" column="MV_ID"/>
+			<association property="gnrVO"
+						javaType="com.ktdsuniversity.admin.gnr.vo.GnrVO">
+				<id property="gnrId" column="GNR_ID"/>
+				<result property="gnrNm" column="GNR_NM"/>
+			</association>
+		</collection>
+		<collection property="pplList"
+					ofType="com.ktdsuniversity.admin.prdcprtcptnppl.vo.PrdcPrtcptnPplVO">
+			<id property="prdcPrtcptnId" column="PRDC_PRTCPTN_ID"/>
+			<result property="mvId" column="MV_ID"/>
+			<result property="mvPplId" column="MV_PPL_ID"/>
+			<result property="mssn" column="MSSN"/>
+			<result property="rspnsbltRolNm" column="RSPNSBLT_ROL_NM"/>
+			<association property="mvPplVO"
+						javaType="com.ktdsuniversity.admin.mvppl.vo.MvPplVO">
+				<id property="mvPplId" column="MV_PPL_ID"/>
+				<result property="nm" column="NM"/>
+				<result property="rlNm" column="RL_NM"/>
+				<result property="prflPctr" column="PRFL_PCTR"/>			
+			</association>
+		</collection>
+	</resultMap>
+	
+	
+	
+	
+
 	<insert id="createNewMv"
 			parameterType="com.ktdsuniversity.admin.mv.vo.MvVO">
+		<selectKey keyProperty="mvId"
+					resultType="string"
+					order="BEFORE">
+			SELECT 'MV-' || TO_CHAR(SYSDATE, 'YYYY-MM-DD') || '-' || LPAD(SEQ_MV_PK.NEXTVAL, 5, '0')
+			  FROM DUAL
+		</selectKey>
 		INSERT INTO MOVIE.MV
 			 ( MV_ID
 			 , MV_TTL
@@ -23,7 +74,7 @@
 			 , USE_YN
 			 , DEL_YN )
 		VALUES
-			 ( 'MV-' || TO_CHAR(SYSDATE, 'YYYY-MM-DD') || '-' || LPAD(SEQ_MV_PK.NEXTVAL, 5, '0')
+			 ( #{mvId}
 			 , #{mvTtl}
 			 , #{engTtl}
 			 , #{scrnStt}
@@ -36,7 +87,7 @@
 			 , #{crtr}
 			 , SYSDATE
 			 , #{mdfyr}
-			 , NVL(#{usdYn}, 'N') 
+			 , NVL(#{useYn}, 'N') 
 			 , 'N' )
 	</insert>
 
@@ -55,7 +106,7 @@
 		   	 , SMR = #{smr}                           
 		   	 , MDFY_DT = SYSDATE
 		   	 , MDFYR = #{mdfyr}
-		   	 , USE_YN = NVL(#{usdYn}, 'N')  
+		   	 , USE_YN = NVL(#{useYn}, 'N')  
 		 WHERE MV_ID = #{mvId}
 	</update>
 	<update id="deleteOneMvByMvId"
@@ -74,19 +125,101 @@
 		 </foreach>
 	</update>
 	
-	
-	
-<!-- 	
 	<select id="readOneMvByMvId"
 			parameterType="string"
-			resultMap="resultMap">
-		
+			resultMap="mvVOMap">
+		SELECT V.MV_ID
+			 , V.MV_TTL
+			 , V.ENG_TTL
+			 , V.SCRN_STT
+			 , V.SCRN_TM
+			 , TO_CHAR(V.OPNG_DT, 'YYYY-MM-DD') OPNG_DT
+			 , V.GRD
+			 , V.PSTR
+			 , V.SMR
+			 , TO_CHAR(V.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') CRT_DT 
+			 , V.CRTR
+			 , V_CRTR_MBR.MBR_NM CRTR_NM
+			 , TO_CHAR(V.MDFY_DT, 'YYYY-MM-DD HH24:MI:SS') MDFY_DT 
+			 , V.MDFYR
+			 , V_MDFYR_MBR.MBR_NM MDFYR_NM
+			 , V.USE_YN
+			 , MG.GNR_ID 
+			 , G.GNR_NM 
+			 , PRP.PRDC_PRTCPTN_ID 
+			 , PRP.MV_PPL_ID 
+			 , PRP.MSSN 
+			 , PRP.RSPNSBLT_ROL_NM 
+			 , MP.NM 
+			 , MP.RL_NM 
+			 , MP.PRFL_PCTR 
+		  FROM MV V
+		 INNER JOIN MV_GNR MG 
+		    ON V.MV_ID = MG.MV_ID 
+		 INNER JOIN GNR G 
+		    ON MG.GNR_ID = G.GNR_ID 
+		 INNER JOIN PRDC_PRTCPTN_PPL PRP 
+		    ON V.MV_ID = PRP.MV_ID
+		 INNER JOIN MV_PPL MP 
+		    ON PRP.MV_PPL_ID = MP.MV_PPL_ID 
+		 INNER JOIN MBR V_CRTR_MBR 
+		    ON V.CRTR = V_CRTR_MBR.MBR_ID 
+		 INNER JOIN MBR V_MDFYR_MBR 
+		    ON V.MDFYR = V_MDFYR_MBR.MBR_ID
+		 WHERE V.MV_ID = #{_parameter}
+		   AND V.DEL_YN = 'N' 
+		   AND G.DEL_YN = 'N' 
+		   AND MP.DEL_YN = 'N' 
+		   AND MG.DEL_YN = 'N' 
+		   AND PRP.DEL_YN = 'N' 
 	</select>
+	
 	<select id="readAllMv"
 			parameterType="com.ktdsuniversity.admin.mv.vo.MvVO"
 			resultMap="resultMap">
-		
+		SELECT V.MV_ID
+			 , V.MV_TTL
+			 , V.ENG_TTL
+			 , V.SCRN_STT
+			 , V.SCRN_TM
+			 , TO_CHAR(V.OPNG_DT, 'YYYY-MM-DD') OPNG_DT
+			 , V.GRD
+			 , V.PSTR
+			 , V.SMR
+			 , TO_CHAR(V.CRT_DT, 'YYYY-MM-DD HH24:MI:SS') CRT_DT 
+			 , V.CRTR
+			 , V_CRTR_MBR.MBR_NM CRTR_NM
+			 , TO_CHAR(V.MDFY_DT, 'YYYY-MM-DD HH24:MI:SS') MDFY_DT 
+			 , V.MDFYR
+			 , V_MDFYR_MBR.MBR_NM MDFYR_NM
+			 , V.USE_YN
+			 , MG.GNR_ID 
+			 , G.GNR_NM 
+			 , PRP.PRDC_PRTCPTN_ID 
+			 , PRP.MV_PPL_ID 
+			 , PRP.MSSN 
+			 , PRP.RSPNSBLT_ROL_NM 
+			 , MP.NM 
+			 , MP.RL_NM 
+			 , MP.PRFL_PCTR 
+		  FROM MV V
+		 INNER JOIN MV_GNR MG 
+		    ON V.MV_ID = MG.MV_ID 
+		 INNER JOIN GNR G 
+		    ON MG.GNR_ID = G.GNR_ID 
+		 INNER JOIN PRDC_PRTCPTN_PPL PRP 
+		    ON V.MV_ID = PRP.MV_ID
+		 INNER JOIN MV_PPL MP 
+		    ON PRP.MV_PPL_ID = MP.MV_PPL_ID 
+		 INNER JOIN MBR V_CRTR_MBR 
+		    ON V.CRTR = V_CRTR_MBR.MBR_ID 
+		 INNER JOIN MBR V_MDFYR_MBR 
+		    ON V.MDFYR = V_MDFYR_MBR.MBR_ID
+		 WHERE V.DEL_YN = 'N' 
+		   AND G.DEL_YN = 'N' 
+		   AND MP.DEL_YN = 'N' 
+		   AND MG.DEL_YN = 'N' 
+		   AND PRP.DEL_YN = 'N' 
 	</select>
-	 -->
 	
 </mapper>

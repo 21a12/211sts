@@ -22,8 +22,13 @@ public class PrdcPrtcptnPplDAOImpl extends SqlSessionDaoSupport implements PrdcP
 	}
 
 	@Override
+	public int updateOnePrdcPrtcptnPpl(PrdcPrtcptnPplVO prdcPrtcptnPplVO) {
+		return getSqlSession().update("PrdcPrtcptnPpl.updateOnePrdcPrtcptnPpl", prdcPrtcptnPplVO);
+	}
+	
+	@Override
 	public int deleteOnePrdcPrtcptnPplByPrdcPrtcptnPplId(String prdcPrtcptnPplId) {
 		return getSqlSession().update("PrdcPrtcptnPpl.deleteOnePrdcPrtcptnPplByPrdcPrtcptnPplId", prdcPrtcptnPplId);
 	}
-	
+
 }

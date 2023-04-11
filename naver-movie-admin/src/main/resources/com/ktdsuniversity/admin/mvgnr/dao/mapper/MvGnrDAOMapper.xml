@@ -6,7 +6,18 @@
 
 	<insert id="createNewMvGnr"
 			parameterType="com.ktdsuniversity.admin.mvgnr.vo.MvGnrVO">
-		INSERT INTO MV_GNR
+		
+		MERGE INTO MV_GNR
+		USING DUAL
+		   ON (MV_ID = #{mvId}
+	       AND GNR_ID = #{gnrId})
+	     WHEN MATCHED THEN 
+	   UPDATE 
+	      SET DEL_YN = 'N'
+	      	, MDFY_DT = SYSDATE
+	      	, MDFYR = #{mdfyr}
+	     WHEN NOT MATCHED THEN
+	   INSERT
 			 ( MV_ID
 			 , GNR_ID
 			 , CRT_DT
@@ -30,6 +41,8 @@
 			parameterType="com.ktdsuniversity.admin.mvgnr.vo.MvGnrVO">
 		UPDATE MV_GNR
 		   SET DEL_YN='Y'
+		     , MDFYR = #{mdfyr}
+		  	 , MDFY_DT = SYSDATE
 		 WHERE MV_ID = #{mvId}  
 		   AND GNR_ID = #{gnrId} 
 	</update>

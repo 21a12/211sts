@@ -163,59 +163,7 @@ $().ready(function() {
 					
 				</div>
 				
-				<div class="grid-detail">
-					<form id="form-detail" enctype="multipart/form-data">
-						<!-- 
-						isModify == true -> 수정(update)
-						isModify == false -> 등록(insert)
-						 -->
-						<input type="hidden" id="isModify" value="false" />
-						<div class="input-group inline">
-							<label for="mvPplId" style="width:150px;">영화인ID</label>
-							<input type="text" id="mvPplId" class="readonly" name="mvPplId" readonly value=""/>
-						</div>
-						<div class="input-group inline">
-							<div style="position:relative;">
-								<label for="prflPctr" style="width:150px;">프로필사진</label>
-								<input type="file" id="prflPctr"  name="prflPctr" value="" style="display:none;"/>
-								<img src="${context}/img/base_profile.jpg" id="previewPrfl" class="profile">
-								<button id="del-pctr" style="position: absolute; right:10px; bottom:10px;">X</button>
-								<input type="hidden" id="isDeletePctr" name="isDeletePctr" value="N">
-							</div>
-						</div>
-						<div class="input-group inline">
-							<label for="nm" style="width:150px;">이름</label>
-							<input type="text" id="nm"  name="nm" value=""/>
-						</div>
-						<div class="input-group inline">
-							<label for="rlNm" style="width:150px;">본명</label>
-							<input type="text" id="rlNm" name="rlNm" value=""/>
-						</div>
-						<div class="input-group inline">
-							<label for="crtr" style="width:150px;">등록자</label>
-							<input type="text" id="crtr" disabled value=""/>
-						</div>
-						<div class="input-group inline">
-							<label for="crtDt" style="width:150px;">등록일</label>
-							<input type="text" id="crtDt" disabled value=""/>
-						</div>
-						<div class="input-group inline">
-							<label for="mdfyr" style="width:150px;">수정자</label>
-							<input type="text" id="mdfyr" disabled value=""/>
-						</div>
-						<div class="input-group inline">
-							<label for="mdfyDt" style="width:150px;">수정일</label>
-							<input type="text" id="mdfyDt" disabled value=""/>
-						</div>
-						<div class="input-group inline">
-							<label for="mdfyDt" style="width:150px;">사용여부</label>
-							<input type="checkbox" id="useYn"  name="useYn" value="Y"/>
-						</div>
-						
-						
-					</form>
-					
-				</div>
+				
 				<div class="align-right grid-btns">
 					<button id="btn-new" class="btn-primary">등록</button>
 					<button id="btn-delete" class="btn-primary btn-delete">삭제</button>

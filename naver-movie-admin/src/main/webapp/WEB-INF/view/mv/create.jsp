@@ -46,8 +46,14 @@ $().ready(function() {
 	$("#btn-new").click(function() {
 		var ajaxUtil = new AjaxUtil();
 		ajaxUtil.upload("#create-form", "${context}/api/mv/create", function(response) {
-			
-		})
+			if (response.status == "200 OK") {
+				location.href = "${context}" + response.redirectURL;
+			} else if (response.errorCode == "404" || response.errorCode == "500") {
+				alert(response.message);
+			} else {
+				alert("영화 등록에 실패했습니다.");
+			}
+		}, {"pstr":"uploadFile"});
 	})
 	
 	
@@ -67,7 +73,6 @@ function addGnrFn(message) {
 	
 	
 	var len = gnrItems.find(".gnr-item").length;
-	// 중복검사를 위한 gnrid 부여
 	var itemDiv = $("<div class='gnr-item " + message.gnrid + "'></div>");
 	
 	var itemId = $("<input type='hidden' name='gnrList["+len+"].gnrId'/>");
@@ -90,11 +95,10 @@ function addGnrFn(message) {
 	// gnrItems.append("<span>" + message.gnrnm + "</span>")
 	// gnrItems.prepend()
 }
-
 function addPplFn(message) {
 	
-	console.log(message.nm + " / " + message.mvpplid);
-	console.log(message.id);
+	// console.log(message.nm + " / " + message.mvpplid);
+	// console.log(message.id);
 	console.log(message);
 	
 	var pplItems = $("#" + message.id).closest(".create-group").find(".items");
@@ -103,13 +107,12 @@ function addPplFn(message) {
 		return;
 	}
 	
-	
 
-	var len = $("#create_form").find(".mvppl-item").length;
-	// 중복검사를 위한 mvpplid 부여
+	var len = $("#create-form").find(".mvppl-item").length;
+	console.log("버튼id:"+message.id+" / mvppl-item 개수:"+len)
 	var itemDiv = $("<div class='mvppl-item " + message.mvpplid + "'></div>");
 	
-	var itemId = $("<input type='hidden' name='pplList["+len+"].mvPplId'/>");
+	var itemId = $("<input type='text' name='pplList["+len+"].mvPplId'/>");
 	itemId.val(message.mvpplid);
 	itemDiv.append(itemId);
 	
@@ -136,7 +139,7 @@ function addPplFn(message) {
 		mssnId = "EXTR"; // 기타
 	}
 	
-	var mssn = $("<input type='hidden' name='pplList["+len+"].mssn' placeholder='임무?'/>");
+	var mssn = $("<input type='text' name='pplList["+len+"].mssn' placeholder='임무?'/>");
 	mssn.val(mssnId);
 	itemDiv.append(mssn);
 	
